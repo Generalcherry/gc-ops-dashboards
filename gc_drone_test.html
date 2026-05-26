@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>GC · Льотні Випробування БПЛА · K-FLY-05</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F8F8;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;color:#191818}
+.hdr{background:#191818;border-bottom:2px solid #38050A;padding:0 16px;height:36px;display:flex;align-items:center;gap:10px}
+.htitle{font-size:11px;font-variant:small-caps;letter-spacing:.08em;font-weight:600;color:#F8F8F8}
+.sdot{width:7px;height:7px;border-radius:50%;background:#3A5311;display:inline-block;transition:opacity .3s}
+.hts{font-size:11px;color:#8A8A8A;font-family:monospace;margin-left:auto}
+.logo{font-size:12px;font-weight:700;color:#38050A;background:#F8F8F8;padding:1px 6px;border-radius:2px;margin-left:10px}
+.ks{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid #E4E4E4}
+.kt{padding:9px 12px;border-right:1px solid #E4E4E4;background:#fff}
+.kt:last-child{border-right:none}
+.kl{font-size:10px;color:#8A8A8A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.kv{font-size:20px;font-weight:600;color:#38050A;font-family:monospace;line-height:1.1;transition:color .4s}
+.ksub{font-size:10px;color:#5A5A5A;margin-top:2px}
+.ksub.p{color:#3A5311}.ksub.w{color:#B81121}
+.pnl{background:#fff;border:1px solid #E4E4E4;border-radius:4px;margin:8px}
+.ph{padding:7px 12px;border-bottom:1px solid #E4E4E4;display:flex;align-items:center;justify-content:space-between}
+.ptt{font-size:11px;font-variant:small-caps;letter-spacing:.07em;font-weight:600}
+.pts{font-size:10px;color:#8A8A8A;font-family:monospace}
+.r2{display:grid;grid-template-columns:55fr 45fr}
+.r3{display:grid;grid-template-columns:repeat(3,1fr)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{font-size:10px;color:#8A8A8A;font-weight:500;padding:5px 10px;border-bottom:1px solid #E4E4E4;text-transform:uppercase;letter-spacing:.04em;text-align:left}
+td{padding:5px 10px;border-bottom:1px solid #F2F2F2;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F6DEB6}
+.pill{display:inline-block;border-radius:2px;padding:1px 6px;font-size:10px;font-weight:600}
+.pp{background:#AAB97E;color:#3A5311}
+.pf{background:#DA1427;color:#fff}
+.pw{background:#F6DEB6;color:#B81121}
+.pn{background:#F2F2F2;color:#8A8A8A;border:1px solid #CFCFCF}
+.mc{font-family:monospace;font-size:10px;color:#5A5A5A}
+.vc{font-family:monospace;font-size:11px;color:#191818;font-weight:600}
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px 12px}
+.dc{border:1px solid #E4E4E4;border-radius:4px;padding:8px;transition:border-color .5s, background .5s}
+.dc.fly{border-color:#3A5311;background:#F0F5E8}
+.dc.fail{border-color:#DA1427;background:#FDECEA}
+.dc.prep{border-color:#CFCFCF;background:#F8F8F8}
+.dc.done{border-color:#AAB97E;background:#F7FAF0}
+.dc.land{border-color:#737222;background:#F8F7E8}
+.dc.rework{border-color:#B81121;background:#FDF5F5}
+.did{font-family:monospace;font-size:11px;font-weight:700}
+.dm{font-size:9px;color:#8A8A8A;margin:1px 0 3px}
+.ds{font-size:10px;font-family:monospace}
+.tr{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;border-bottom:1px solid #F2F2F2;font-size:11px}
+.tr:last-child{border-bottom:none}
+.tval{font-family:monospace;font-weight:600;transition:color .4s}
+.tval.live-change{color:#3A5311}
+.bi{padding:10px 12px}
+.ftr{padding:4px 16px;border-top:1px solid #E4E4E4;background:#F8F8F8}
+.ftxt{font-size:10px;color:#8A8A8A;font-family:monospace}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr}
+.chk-cell{padding:4px 10px;border-bottom:1px solid #F2F2F2;border-right:1px solid #F2F2F2;display:flex;justify-content:space-between;align-items:center;font-size:10px}
+.chk-cell:nth-child(even){border-right:none}
+.chk-cell:nth-last-child(-n+2){border-bottom:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.live-indicator{animation:pulse 2s ease-in-out infinite;color:#3A5311}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="sdot" id="sdot"></div>
+  <span class="htitle">Льотні Випробування БПЛА</span>
+  <span style="font-size:11px;color:#8A8A8A;font-family:monospace">K-FLY-05</span>
+  <span class="hts" id="ts">2026-05-26 14:32:07</span>
+  <span class="logo">GC</span>
+</div>
+
+<div class="ks">
+  <div class="kt"><div class="kl">Сесія</div><div class="kv" style="font-size:13px;margin-top:3px"><span class="pill" style="background:#191818;color:#F8F8F8">АКТИВНА</span></div><div class="ksub">FLY-2026-147</div></div>
+  <div class="kt"><div class="kl">В польоті</div><div class="kv" id="k-flying">3</div><div class="ksub" id="k-flying-sub">з 4 запл.</div></div>
+  <div class="kt"><div class="kl">Пройшли (зм.)</div><div class="kv" id="k-passed">18</div><div class="ksub p" id="k-passed-sub">з 21 тестів</div></div>
+  <div class="kt"><div class="kl">Відмови (зм.)</div><div class="kv" id="k-fails">3</div><div class="ksub w">2 крит.</div></div>
+  <div class="kt"><div class="kl">Сер. час польоту</div><div class="kv" id="k-avgtime">14.3хв</div><div class="ksub p">Ціль 12хв</div></div>
+  <div class="kt"><div class="kl">Заряд батарей</div><div class="kv" id="k-batt">74%</div><div class="ksub">4 на зарядці</div></div>
+</div>
+
+<div class="r2">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Стан БПЛА · Поточна Сесія</span><span class="pts" id="drone-ts">Оновлено 14:32:06</span></div>
+    <div class="dgrid" id="drone-grid"></div>
+    <div style="font-size:10px;color:#8A8A8A;padding:3px 12px 7px;font-family:monospace;border-top:1px solid #F2F2F2">↳ UAV-040: вібрація підтвердж. на кронштейні PROTO-018 · 3D-цех · 13:41 · О.К.</div>
+    <div style="border-top:1px solid #E4E4E4">
+      <div class="ph" style="border-bottom:none;padding-top:7px;padding-bottom:5px"><span class="ptt">Журнал Сесії</span><span class="pts" id="log-ts">14:32:06</span></div>
+      <table><thead><tr><th>Час</th><th>БПЛА</th><th>Подія</th><th>Тривал.</th><th>Результат</th></tr></thead>
+      <tbody id="session-log"></tbody></table>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column">
+    <div class="pnl">
+      <div class="ph"><span class="ptt">Телеметрія · UAV-041</span><span class="pts live-indicator">● LIVE</span></div>
+      <div class="tr"><span style="color:#5A5A5A">Висота</span><span class="tval" id="t-alt">48.3 м</span></div>
+      <div class="tr"><span style="color:#5A5A5A">Швидкість</span><span class="tval" id="t-spd">0.0 м/с</span></div>
+      <div class="tr"><span style="color:#5A5A5A">АКБ / Напруга</span><span class="tval" id="t-batt">61.4% · 22.1В</span></div>
+      <div class="tr"><span style="color:#5A5A5A">Струм</span><span class="tval" id="t-curr">18.7 А</span></div>
+      <div class="tr"><span style="color:#5A5A5A">Т° моторів М1–4</span><span class="tval" id="t-temp">47/48/46/47°C</span></div>
+      <div class="tr"><span style="color:#5A5A5A">RSSI</span><span class="tval" id="t-rssi" style="color:#3A5311">−68 дБм</span></div>
+      <div class="tr"><span style="color:#5A5A5A">GPS</span><span class="tval" id="t-gps">17 сат · 0.8м CEP</span></div>
+      <div class="tr"><span style="color:#5A5A5A">Час польоту</span><span class="tval" id="t-time">12хв 43с</span></div>
+    </div>
+    <div class="pnl">
+      <div class="ph"><span class="ptt">Pre-Flight · UAV-045</span><span class="pts" id="preflight-ts">14:29:51</span></div>
+      <div class="chk-grid" id="preflight-grid"></div>
+    </div>
+    <div class="pnl" style="flex:1">
+      <div class="ph"><span class="ptt">Розклад · Наступні Сесії</span><span class="pts">14:30:00</span></div>
+      <table><thead><tr><th>Час</th><th>БПЛА</th><th>Тест</th><th>Опер.</th></tr></thead>
+      <tbody id="schedule-tbody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="r3">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Журнал Відмов (30 Днів)</span><span class="pts">Оновлено 14:28:00</span></div>
+    <table><thead><tr><th>БПЛА</th><th>Компонент</th><th>Тип</th><th>Результат</th></tr></thead>
+    <tbody>
+      <tr><td class="mc">UAV-044</td><td class="mc">ESC-3</td><td style="font-size:10px">Електр.</td><td><span class="pill pf">Крит.</span></td></tr>
+      <tr><td class="mc">UAV-040</td><td class="mc">MNT кронш.</td><td style="font-size:10px">Вібрація</td><td><span class="pill pw">Переробка</span></td></tr>
+      <tr><td class="mc">UAV-036</td><td class="mc">FC прошивка</td><td style="font-size:10px">ПЗ</td><td><span class="pill pp">Закрито</span></td></tr>
+      <tr><td class="mc">UAV-031</td><td class="mc">GPS мод.</td><td style="font-size:10px">Антена</td><td><span class="pill pp">Закрито</span></td></tr>
+      <tr><td class="mc">UAV-029</td><td class="mc">Рама ARM-X6</td><td style="font-size:10px">Мех.</td><td><span class="pill pp">Закрито</span></td></tr>
+    </tbody></table>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Статистика (30 Днів)</span><span class="pts">14:28:00</span></div>
+    <div class="bi">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><div style="font-size:10px;color:#8A8A8A">Всього тестів</div><div style="font-size:22px;font-family:monospace;color:#38050A;font-weight:600">187</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Пройшли</div><div style="font-size:22px;font-family:monospace;color:#3A5311;font-weight:600">174</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">FPT (перший)</div><div style="font-size:22px;font-family:monospace;color:#38050A;font-weight:600">93.0%</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Крит. відмов</div><div style="font-size:22px;font-family:monospace;color:#DA1427;font-weight:600">4</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Матриця Тестів (Поточний Тиждень)</span><span class="pts">14:30:00</span></div>
+    <table><thead><tr><th>БПЛА</th><th>Висота</th><th>Дальн.</th><th>Витр.</th><th>Навант.</th></tr></thead>
+    <tbody>
+      <tr><td class="mc">UAV-038</td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pp" style="font-size:9px">OK</span></td></tr>
+      <tr><td class="mc">UAV-039</td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pw" style="font-size:9px">Поп.</span></td></tr>
+      <tr><td class="mc">UAV-040</td><td><span class="pill pw" style="font-size:9px">Поп.</span></td><td><span class="pill pn" style="font-size:9px">—</span></td><td><span class="pill pn" style="font-size:9px">—</span></td><td><span class="pill pn" style="font-size:9px">—</span></td></tr>
+      <tr><td class="mc">UAV-041</td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pp" style="font-size:9px">OK</span></td><td><span class="pill pn" style="font-size:9px">→</span></td><td><span class="pill pn" style="font-size:9px">—</span></td></tr>
+      <tr><td class="mc">UAV-044</td><td><span class="pill pf" style="font-size:9px">ЗБІЙ</span></td><td><span class="pill pn" style="font-size:9px">—</span></td><td><span class="pill pn" style="font-size:9px">—</span></td><td><span class="pill pn" style="font-size:9px">—</span></td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<div class="ftr">
+  <span class="ftxt">Джерело даних: MAVLink Telemetry · GCS v4.2 · оновлення кожні 5 с · журнал: K-FLY-05/log · Контакт: Льотний цех · вн. 311 · <span id="update-ts">—</span></span>
+</div>
+
+<script>
+const pad = n => String(n).padStart(2,'0');
+function nowStr(){const n=new Date();return `2026-05-26 ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function timeStr(){const n=new Date();return `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function rnd(min,max,dec=1){return parseFloat((Math.random()*(max-min)+min).toFixed(dec));}
+
+// Telemetry live state
+const telem = {
+  alt:48.3, spd:0.0, batt:61.4, volt:22.1, curr:18.7,
+  temp:[47,48,46,47], rssi:-68, sats:17, cep:0.8,
+  flightSec:763 // 12m43s
+};
+
+// Drone states
+const drones = [
+  {id:'UAV-041',model:'GC-X8 Rev.4',state:'fly',alt:48,batt:61,time:12.7,note:'GPS: OK'},
+  {id:'UAV-042',model:'GC-X8 Rev.4',state:'fly',alt:35,batt:77,time:8.4,note:'GPS: OK'},
+  {id:'UAV-043',model:'GC-X6 Rev.2',state:'land',alt:8,batt:43,time:14.1,note:'RTL'},
+  {id:'UAV-044',model:'GC-X8 Rev.4',state:'fail',alt:0,batt:0,time:0,note:'Збій ESC-3'},
+  {id:'UAV-038',model:'GC-X8 Rev.3',state:'done',alt:0,batt:82,time:12.8,note:'склад'},
+  {id:'UAV-039',model:'GC-X6 Rev.2',state:'done',alt:0,batt:78,time:15.2,note:'склад'},
+  {id:'UAV-040',model:'GC-X8 Rev.4',state:'rework',alt:0,batt:0,time:9.1,note:'Вібрація мот.'},
+  {id:'UAV-045',model:'GC-X8 Rev.5',state:'prep',alt:0,batt:88,time:0,note:'ETA: 15:10'},
+];
+
+const preflightItems = [
+  {label:'Рама / кріпл.',status:'pp',val:'OK'},{label:'Пропелери',status:'pp',val:'OK'},
+  {label:'ESC 1–4',status:'pp',val:'OK'},{label:'GPS антена',status:'pp',val:'OK'},
+  {label:'АКБ >85%',status:'pn',val:'88%→'},{label:'Відео-лінк',status:'pp',val:'OK'},
+  {label:'RC зв\'язок',status:'pp',val:'OK'},{label:'Барометр',status:'pp',val:'OK'},
+];
+
+const sessionLog = [
+  {ts:'13:58',uav:'UAV-044',event:'Аварійна посадка',dur:'ESC збій',result:'pf',res:'Крит.'},
+  {ts:'13:41',uav:'UAV-040',event:'Перерваний тест',dur:'9.1хв',result:'pw',res:'Переробка'},
+  {ts:'13:12',uav:'UAV-039',event:'Завершено успішно',dur:'15.2хв',result:'pp',res:'OK'},
+  {ts:'12:44',uav:'UAV-038',event:'Завершено успішно',dur:'12.8хв',result:'pp',res:'OK'},
+];
+
+const schedule = [
+  {ts:'15:10',uav:'UAV-045',test:'GC-X8 Rev.5 · ПП',op:'О.К.'},
+  {ts:'15:30',uav:'UAV-041',test:'Витривалість 30хв',op:'В.М.'},
+  {ts:'16:00',uav:'UAV-044',test:'ESC реп. тест',op:'Т.С.'},
+  {ts:'16:45',uav:'UAV-046',test:'Перший політ',op:'О.К.',muted:true},
+];
+
+function stateLabel(s){
+  const m={fly:['В ПОЛЬОТІ','#3A5311'],land:['ПОСАДКА','#737222'],fail:['ВІДМОВА','#DA1427'],done:['ПРОЙШОВ','#3A5311'],rework:['ПЕРЕРОБКА','#B81121'],prep:['ПІДГОТОВКА','#8A8A8A']};
+  return m[s]||['—','#8A8A8A'];
+}
+
+function renderDroneGrid(){
+  const g=document.getElementById('drone-grid');
+  g.innerHTML='';
+  drones.forEach(d=>{
+    const [lbl,clr]=stateLabel(d.state);
+    const pill=`<span class="pill" style="background:${clr};color:#fff;font-size:9px">${lbl}</span>`;
+    let line1='',line2='';
+    if(d.state==='fly'||d.state==='land'){
+      line1=`<div class="ds" style="margin-top:4px;color:${clr}">Alt:${d.alt}м · ${d.time.toFixed(1)}хв</div>`;
+      line2=`<div class="ds" style="color:#5A5A5A">АКБ:${d.batt.toFixed(0)}% · ${d.note}</div>`;
+    } else if(d.state==='done'){
+      line1=`<div class="ds" style="margin-top:4px;color:#3A5311">${d.time.toFixed(1)}хв · OK</div>`;
+      line2=`<div class="ds" style="color:#5A5A5A">АКБ:${d.batt}% · ${d.note}</div>`;
+    } else if(d.state==='fail'||d.state==='rework'){
+      line1=`<div class="ds" style="margin-top:4px;color:${clr}">${d.note}</div>`;
+      line2=`<div class="ds" style="color:#8A8A8A">земля</div>`;
+    } else {
+      line1=`<div class="ds" style="margin-top:4px;color:#8A8A8A">Зарядка ${d.batt.toFixed(0)}%</div>`;
+      line2=`<div class="ds" style="color:#8A8A8A">${d.note}</div>`;
+    }
+    g.innerHTML+=`<div class="dc ${d.state}"><div class="did">${d.id}</div><div class="dm">${d.model}</div>${pill}${line1}${line2}</div>`;
+  });
+}
+
+function renderSessionLog(){
+  const tb=document.getElementById('session-log');
+  tb.innerHTML='';
+  sessionLog.forEach(l=>{
+    tb.innerHTML+=`<tr><td class="mc">${l.ts}</td><td class="mc">${l.uav}</td><td style="font-size:10px">${l.event}</td><td class="vc">${l.dur}</td><td><span class="pill ${l.result}">${l.res}</span></td></tr>`;
+  });
+}
+
+function renderPreflight(){
+  const g=document.getElementById('preflight-grid');
+  g.innerHTML='';
+  preflightItems.forEach(i=>{
+    g.innerHTML+=`<div class="chk-cell">${i.label}<span class="pill ${i.status}" style="font-size:9px">${i.val}</span></div>`;
+  });
+}
+
+function renderSchedule(){
+  const tb=document.getElementById('schedule-tbody');
+  tb.innerHTML='';
+  schedule.forEach(s=>{
+    tb.innerHTML+=`<tr><td class="mc">${s.ts}</td><td class="mc">${s.uav}</td><td style="font-size:10px${s.muted?';color:#8A8A8A':''}">${s.test}</td><td class="mc">${s.op}</td></tr>`;
+  });
+}
+
+// ── Telemetry: updates every 5 seconds ────────────────────────────────────────
+function updateTelemetry(){
+  telem.alt += rnd(-0.8,0.8);
+  telem.alt = Math.max(30,Math.min(65,telem.alt));
+  telem.spd = rnd(0,2.5);
+  telem.batt -= rnd(0,0.05);
+  telem.batt = Math.max(20,telem.batt);
+  telem.volt = (telem.batt*0.238+7.5).toFixed(1);
+  telem.curr = rnd(15,24);
+  telem.temp = telem.temp.map(t=>Math.round(t+rnd(-0.5,0.5)));
+  telem.rssi = Math.round(-68+rnd(-3,3));
+  telem.cep = rnd(0.6,1.2);
+  telem.flightSec++;
+
+  const m=Math.floor(telem.flightSec/60),s=telem.flightSec%60;
+
+  function setTval(id,val,good){
+    const e=document.getElementById(id);
+    if(!e)return;
+    e.textContent=val;
+    e.style.color=good?'#3A5311':'#191818';
+    e.classList.remove('live-change');void e.offsetWidth;e.classList.add('live-change');
+    setTimeout(()=>e.style.color=good?'#3A5311':'#191818',600);
+  }
+
+  setTval('t-alt',`${telem.alt.toFixed(1)} м`,false);
+  setTval('t-spd',`${telem.spd.toFixed(1)} м/с`,false);
+  setTval('t-batt',`${telem.batt.toFixed(1)}% · ${telem.volt}В`,telem.batt>50);
+  setTval('t-curr',`${telem.curr.toFixed(1)} А`,false);
+  setTval('t-temp',`${telem.temp.join('/')}°C`,telem.temp.every(t=>t<55));
+  setTval('t-rssi',`${telem.rssi} дБм`,telem.rssi>-80);
+  setTval('t-gps',`17 сат · ${telem.cep.toFixed(1)}м CEP`,true);
+  setTval('t-time',`${m}хв ${pad(s)}с`,false);
+
+  // Update flying drones altitude/time
+  drones.forEach(d=>{
+    if(d.state==='fly'){d.alt=Math.round(d.alt+rnd(-2,2));d.time+=5/60;d.batt=Math.max(10,d.batt-0.01);}
+    if(d.state==='land'){d.alt=Math.max(0,d.alt-0.5);d.time+=5/60;d.batt=Math.max(5,d.batt-0.02);}
+    if(d.state==='prep'){d.batt=Math.min(100,d.batt+0.05);}
+  });
+
+  renderDroneGrid();
+  document.getElementById('drone-ts').textContent='Оновлено '+timeStr();
+}
+
+// ── Slow update: every 60 seconds ─────────────────────────────────────────────
+function slowUpdate(){
+  const flyCount=drones.filter(d=>d.state==='fly').length;
+  document.getElementById('k-flying').textContent=flyCount;
+  document.getElementById('k-batt').textContent=Math.round(74+rnd(-3,3))+'%';
+  document.getElementById('update-ts').textContent='Оновлено '+timeStr();
+
+  // Blink dot
+  const dot=document.getElementById('sdot');
+  dot.style.opacity='0.2';
+  setTimeout(()=>dot.style.opacity='1',400);
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────────
+renderDroneGrid();
+renderSessionLog();
+renderPreflight();
+renderSchedule();
+
+setInterval(()=>document.getElementById('ts').textContent=nowStr(),1000);
+setInterval(updateTelemetry,5000);
+setInterval(slowUpdate,60000);
+setTimeout(updateTelemetry,1000);
+</script>
+</body>
+</html>

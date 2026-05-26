@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>GC · Стан 3D-Друку · K-PRT-03</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F8F8;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;color:#191818}
+.hdr{background:#F8F8F8;border-bottom:1px solid #E4E4E4;padding:0 16px;height:36px;display:flex;align-items:center;gap:12px}
+.htitle{font-size:11px;font-variant:small-caps;letter-spacing:.08em;font-weight:600}
+.sdot{width:7px;height:7px;border-radius:50%;background:#3A5311;display:inline-block;transition:opacity .3s}
+.hts{font-size:11px;color:#8A8A8A;font-family:monospace;margin-left:auto}
+.logo{font-size:13px;font-weight:700;color:#38050A;margin-left:12px}
+.ks{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #E4E4E4}
+.kt{padding:10px 16px;border-right:1px solid #E4E4E4;background:#fff}
+.kt:last-child{border-right:none}
+.kl{font-size:11px;color:#8A8A8A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.kv{font-size:24px;font-weight:600;color:#38050A;font-family:monospace;line-height:1.1;transition:color .4s}
+.kv.flash{color:#3A5311}
+.ksub{font-size:11px;color:#5A5A5A;margin-top:2px}
+.ksub.pos{color:#3A5311}
+.mr{display:grid;grid-template-columns:60fr 40fr;min-height:320px}
+.pnl{background:#fff;border:1px solid #E4E4E4;border-radius:4px;margin:8px}
+.ph{padding:8px 12px;border-bottom:1px solid #E4E4E4;display:flex;align-items:center;justify-content:space-between}
+.ptt{font-size:11px;font-variant:small-caps;letter-spacing:.07em;font-weight:600}
+.pts{font-size:10px;color:#8A8A8A;font-family:monospace}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{font-size:10px;color:#8A8A8A;font-weight:500;padding:5px 8px;border-bottom:1px solid #E4E4E4;text-transform:uppercase;letter-spacing:.05em;text-align:left}
+td{padding:5px 8px;border-bottom:1px solid #F2F2F2;vertical-align:middle;transition:background .3s}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F6DEB6}
+.pb{font-family:monospace;font-size:11px;white-space:nowrap;color:#3A5311}
+.pill{display:inline-block;border-radius:2px;padding:1px 6px;font-size:10px;font-weight:600}
+.ph2{background:#F6DEB6;color:#B81121}
+.pm{background:#F2F2F2;color:#5A5A5A}
+.pl{background:#fff;color:#8A8A8A;border:1px solid #CFCFCF}
+.pr{background:#AAB97E;color:#3A5311}
+.qs::-webkit-scrollbar{width:4px}
+.qs::-webkit-scrollbar-thumb{background:#CFCFCF;border-radius:2px}
+.br{display:grid;grid-template-columns:repeat(3,1fr)}
+.bp{background:#fff;border:1px solid #E4E4E4;border-radius:4px;margin:0 8px 8px}
+.bpi{padding:10px 12px}
+.bc{display:flex;align-items:flex-end;gap:4px;height:54px;margin-top:6px}
+.bw{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
+.bv{font-size:9px;color:#5A5A5A;font-family:monospace}
+.bar{background:#AAB97E;border-radius:2px 2px 0 0;width:100%;transition:height .6s ease}
+.bd{font-size:9px;color:#8A8A8A;margin-top:2px}
+.bn{font-size:28px;font-family:monospace;color:#38050A;font-weight:600;line-height:1}
+.bnl{font-size:10px;color:#8A8A8A;margin-top:2px}
+.mr2{display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid #F2F2F2}
+.mr2:last-child{border-bottom:none}
+.mn2{font-family:monospace;font-size:11px;width:42px}
+.mb{flex:1;height:8px;background:#F2F2F2;border-radius:2px;overflow:hidden}
+.mbf{height:100%;background:#AAB97E;border-radius:2px;transition:width .8s ease}
+.mk{font-family:monospace;font-size:10px;color:#5A5A5A;width:44px;text-align:right}
+.fb{font-size:32px;font-family:monospace;color:#38050A;font-weight:600;line-height:1}
+.fs{font-size:20px;font-family:monospace;color:#191818;font-weight:500;margin-top:4px;line-height:1.2}
+.fl{font-size:10px;color:#8A8A8A;margin-left:4px;font-weight:400}
+.sd{display:flex;align-items:flex-end;gap:1.5px;height:20px;margin-top:6px}
+.sdd{width:5px;border-radius:1px;background:#CFCFCF}
+.sdl{background:#3A5311}
+.ftr{padding:4px 16px;border-top:1px solid #E4E4E4;background:#F8F8F8}
+.ftxt{font-size:10px;color:#8A8A8A;font-family:monospace}
+.mc{font-family:monospace;font-size:10px;color:#5A5A5A}
+.oc{font-family:monospace;font-size:11px;font-weight:600}
+.ec{font-family:monospace;font-size:11px}
+.fc{font-size:10px;color:#5A5A5A;font-family:monospace}
+.updated{animation:flash-row .5s ease}
+@keyframes flash-row{0%{background:#F6DEB6}100%{background:transparent}}
+.progress-cell{transition:all .6s ease}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="sdot" id="sdot"></div>
+  <span class="htitle">Стан 3D-Друку</span>
+  <span style="font-size:11px;color:#8A8A8A;font-family:monospace">K-PRT-03</span>
+  <span class="hts" id="ts">2026-05-26 14:32:07</span>
+  <span class="logo">GC</span>
+</div>
+
+<div class="ks">
+  <div class="kt"><div class="kl">Активні принтери</div><div class="kv" id="k-active">5 / 6</div><div class="ksub">1 на обслуговуванні</div></div>
+  <div class="kt"><div class="kl">Деталей за тиждень</div><div class="kv" id="k-parts">247</div><div class="ksub pos" id="k-parts-sub">+18 до плану</div></div>
+  <div class="kt"><div class="kl">Середній час виконання</div><div class="kv" id="k-time">4г 12хв</div><div class="ksub pos" id="k-time-sub">−9% м/м</div></div>
+  <div class="kt"><div class="kl">Завантаженість черги</div><div class="kv" id="k-queue">78%</div><div class="ksub" id="k-queue-sub">14 завдань очікують</div></div>
+</div>
+
+<div class="mr">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Активні Друки</span><span class="pts" id="active-ts">Оновлено 14:31:58</span></div>
+    <table>
+      <thead><tr><th>Принтер</th><th>Деталь</th><th>Тип</th><th>Прогрес</th><th>ETA</th><th>Філамент</th><th>Оператор</th></tr></thead>
+      <tbody id="print-tbody"></tbody>
+    </table>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Черга</span><span class="pts" id="queue-count">14 завдань · ~58 год</span></div>
+    <div style="max-height:280px;overflow-y:auto" class="qs">
+      <table>
+        <thead><tr><th>#</th><th>Деталь</th><th>Приорит.</th><th>Час</th><th>Замовник</th></tr></thead>
+        <tbody id="queue-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="br">
+  <div class="bp">
+    <div class="ph"><span class="ptt">Завантаженість Принтерів (7 Днів)</span><span class="pts" id="load-ts">Оновлено 14:30:01</span></div>
+    <div class="bpi" style="display:flex;gap:12px;align-items:flex-start">
+      <div style="flex:1"><div class="bc" id="bar-chart"></div></div>
+      <div style="text-align:right"><div class="bn" id="avg-load">83.4%</div><div class="bnl">середня завантаженість</div></div>
+    </div>
+  </div>
+  <div class="bp">
+    <div class="ph"><span class="ptt">Споживання Філаменту (7 Днів)</span><span class="pts">Оновлено 14:29:44</span></div>
+    <div class="bpi" id="filament-panel">
+      <div class="mr2"><span class="mn2">PA-CF</span><div class="mb"><div class="mbf" id="fil-pacf" style="width:60%"></div></div><span class="mk" id="fil-pacf-kg">4.8 кг</span><span class="pill pr" style="font-size:9px">OK</span></div>
+      <div class="mr2"><span class="mn2">PETG</span><div class="mb"><div class="mbf" id="fil-petg" style="width:40%"></div></div><span class="mk" id="fil-petg-kg">3.2 кг</span><span class="pill pr" style="font-size:9px">OK</span></div>
+      <div class="mr2"><span class="mn2">PLA</span><div class="mb"><div class="mbf" id="fil-pla" style="width:18%"></div></div><span class="mk" id="fil-pla-kg">1.4 кг</span><span class="pill pr" style="font-size:9px">OK</span></div>
+      <div class="mr2"><span class="mn2">TPU</span><div class="mb"><div class="mbf" id="fil-tpu" style="width:8%;background:#D13D49"></div></div><span class="mk" id="fil-tpu-kg">0.3 кг</span><span class="pill ph2" style="font-size:9px">НИЗЬК.</span></div>
+      <div style="font-size:10px;color:#8A8A8A;margin-top:6px;font-family:monospace">Замовлення TPU створено · 25.05 · О.К.</div>
+    </div>
+  </div>
+  <div class="bp">
+    <div class="ph"><span class="ptt">Відмови та Переробки (30 Днів)</span><span class="pts">Оновлено 14:28:12</span></div>
+    <div class="bpi">
+      <div class="fb" id="fpy-val">97.2%</div>
+      <div style="font-size:10px;color:#8A8A8A;margin-bottom:6px">Перший прохід (FPY)</div>
+      <div class="fs" id="rework-val">2.1% <span class="fl">Переробки</span></div>
+      <div class="fs" id="scrap-val">0.7% <span class="fl">Списано</span></div>
+      <div class="sd" id="sparkline"></div>
+      <div style="font-size:9px;color:#8A8A8A;margin-top:3px">FPY тренд · 30 днів</div>
+    </div>
+  </div>
+</div>
+
+<div class="ftr">
+  <span class="ftxt">Джерело даних: Moonraker API · Bambu MQTT · оновлення кожні 30 с · повний журнал: K-PRT-03/log · Контакт: 3D-цех · вн. 412 · <span id="update-counter">оновлено тільки що</span></span>
+</div>
+
+<script>
+// ── Static / long-period data (never touched by live updates) ─────────────────
+const STATIC_FPY = 97.2, STATIC_REWORK = 2.1, STATIC_SCRAP = 0.7;
+const SPARK_HEIGHTS = [12,14,11,16,13,10,15,14,13,12,16,14,11,15,14,13,16,12,14,11,13,16,15,14,13,12,14,16,15,17];
+const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Нд'];
+const STATIC_BARS = [87,92,78,95,91,73,68]; // historical week — never changes
+
+// ── Live simulation state ──────────────────────────────────────────────────────
+const printers = [
+  {id:'PRT-01', part:'MNT-FPV-074', type:'Кріплення камери', prog:73, eta:'15:48', fil:'PETG', filPct:62, op:'О.К.', active:true},
+  {id:'PRT-02', part:'HSG-BAT-019', type:'Корпус АКБ',       prog:91, eta:'14:51', fil:'PA-CF', filPct:38, op:'О.К.', active:true},
+  {id:'PRT-03', part:'ARM-X8-003', type:'Промінь рами',      prog:28, eta:'17:22', fil:'PA-CF', filPct:71, op:'В.М.', active:true},
+  {id:'PRT-04', part:'JIG-CAL-002',type:'Калібр. оснастка',  prog:64, eta:'16:05', fil:'PLA',  filPct:44, op:'В.М.', active:true},
+  {id:'PRT-05', part:'—',          type:'—',                  prog:-1, eta:'—',    fil:'—',    filPct:0,  op:'Т.С.', active:false, note:'Зонд переналаштовано · 09:14 · Т.С.'},
+  {id:'PRT-06', part:'PROTO-018',  type:'Прототип кронш.',   prog:19, eta:'18:44', fil:'PETG', filPct:89, op:'В.М.', active:true},
+];
+
+const queueItems = [
+  {n:'01',part:'MNT-FPV-075',pri:'ВИСОК.',time:'4 год',client:'Цех 3 / Л2'},
+  {n:'02',part:'HSG-BAT-020',pri:'ВИСОК.',time:'3г 20хв',client:'Цех 3 / Л2'},
+  {n:'03',part:'MNT-ANT-041',pri:'СЕРЕД.',time:'2г 10хв',client:'Цех 3 / Л1'},
+  {n:'04',part:'JIG-TEST-007',pri:'СЕРЕД.',time:'5 год',client:'QA'},
+  {n:'05',part:'PROTO-019',pri:'НИЗЬК.',time:'6г 30хв',client:'R&D'},
+  {n:'06',part:'MNT-FPV-076',pri:'СЕРЕД.',time:'4 год',client:'Цех 3 / Л2'},
+  {n:'07',part:'HSG-CTRL-008',pri:'СЕРЕД.',time:'3г 45хв',client:'Цех 3 / Л3'},
+  {n:'08',part:'SPR-MNT-012',pri:'НИЗЬК.',time:'2г 30хв',client:'Склад'},
+];
+
+let weekParts = 247, partsDelta = 18;
+let updateCount = 0;
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+const pad = n => String(n).padStart(2,'0');
+function nowStr(){const n=new Date();return `2026-05-26 ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function timeStr(){const n=new Date();return `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function addMinutes(timeStr, mins){
+  const [h,m] = timeStr.split(':').map(Number);
+  const total = h*60+m+mins;
+  return `${pad(Math.floor(total/60)%24)}:${pad(total%60)}`;
+}
+function progressBar(pct){
+  const filled = Math.round(pct/10);
+  return '▓'.repeat(filled) + '░'.repeat(10-filled) + ` ${pct}%`;
+}
+function pillClass(pri){return pri==='ВИСОК.'?'ph2':pri==='СЕРЕД.'?'pm':'pl';}
+function flashEl(id){const e=document.getElementById(id);if(e){e.classList.remove('updated');void e.offsetWidth;e.classList.add('updated');}}
+
+// ── Render functions ───────────────────────────────────────────────────────────
+function renderPrinters(){
+  const tbody = document.getElementById('print-tbody');
+  tbody.innerHTML = '';
+  printers.forEach(p => {
+    if(!p.active){
+      tbody.innerHTML += `<tr class="updated"><td class="mc">${p.id}</td><td class="mc">—</td><td>—</td><td><span class="pill pl">ОБСЛУГОВУВАННЯ</span></td><td class="ec">—</td><td class="fc">—</td><td class="oc">${p.op}</td></tr>`;
+      if(p.note) tbody.innerHTML += `<tr><td colspan="7" style="font-size:10px;color:#8A8A8A;padding:2px 8px 6px;font-family:monospace">↳ ${p.note}</td></tr>`;
+      return;
+    }
+    tbody.innerHTML += `<tr><td class="mc">${p.id}</td><td class="mc">${p.part}</td><td>${p.type}</td><td class="pb progress-cell">${progressBar(p.prog)}</td><td class="ec">${p.eta}</td><td class="fc">${p.fil} · ${p.filPct}%</td><td class="oc">${p.op}</td></tr>`;
+  });
+}
+
+function renderQueue(){
+  const tbody = document.getElementById('queue-tbody');
+  tbody.innerHTML = '';
+  queueItems.forEach(q => {
+    tbody.innerHTML += `<tr><td class="mc" style="font-family:monospace">${q.n}</td><td class="mc">${q.part}</td><td><span class="pill ${pillClass(q.pri)}">${q.pri}</span></td><td class="ec">${q.time}</td><td style="font-size:10px;color:#5A5A5A">${q.client}</td></tr>`;
+  });
+}
+
+function renderBars(){
+  const chart = document.getElementById('bar-chart');
+  chart.innerHTML = '';
+  STATIC_BARS.forEach((v,i) => {
+    chart.innerHTML += `<div class="bw"><div class="bv">${v}%</div><div class="bar" style="height:${Math.round(v*0.55)}px"></div><div class="bd">${DAYS[i]}</div></div>`;
+  });
+}
+
+function renderSparkline(){
+  const spark = document.getElementById('sparkline');
+  spark.innerHTML = '';
+  SPARK_HEIGHTS.forEach((h,i) => {
+    spark.innerHTML += `<div class="sdd${i>=27?' sdl':''}" style="height:${h}px"></div>`;
+  });
+}
+
+// ── Live update tick ───────────────────────────────────────────────────────────
+function liveUpdate(){
+  updateCount++;
+  const now = new Date();
+
+  // Clock
+  document.getElementById('ts').textContent = nowStr();
+
+  // Advance printer progress (each active printer moves at its own rate)
+  printers.forEach(p => {
+    if(!p.active || p.prog < 0) return;
+    // Different printers advance at different realistic speeds
+    const speeds = {'PRT-01':0.4,'PRT-02':0.8,'PRT-03':0.15,'PRT-04':0.3,'PRT-06':0.12};
+    const speed = speeds[p.id] || 0.2;
+    p.prog = Math.min(100, p.prog + speed + (Math.random()*0.2 - 0.1));
+    p.prog = Math.round(p.prog*10)/10;
+    // If completed, restart with new part
+    if(p.prog >= 100){
+      p.prog = 0;
+      weekParts++;
+      partsDelta++;
+      document.getElementById('k-parts').textContent = weekParts;
+      document.getElementById('k-parts-sub').textContent = `+${partsDelta} до плану`;
+      flashEl('k-parts');
+    }
+    // Filament decreases slowly
+    p.filPct = Math.max(2, p.filPct - Math.random()*0.05);
+    p.filPct = Math.round(p.filPct*10)/10;
+    // ETA adjusts ± slightly
+    if(Math.random() < 0.1){
+      const adj = Math.random() < 0.5 ? 1 : -1;
+      p.eta = addMinutes(p.eta, adj);
+    }
+  });
+
+  // Queue load fluctuates ±1%
+  const qLoad = 78 + Math.round((Math.sin(updateCount*0.3)*3));
+  document.getElementById('k-queue').textContent = qLoad+'%';
+
+  // Average time drifts ±1 min
+  const baseMin = 252; // 4h 12m in minutes
+  const drift = Math.round(Math.sin(updateCount*0.2)*4);
+  const totalMin = baseMin + drift;
+  const hours = Math.floor(totalMin/60), mins = totalMin%60;
+  document.getElementById('k-time').textContent = `${hours}г ${mins}хв`;
+
+  // Filament consumption increments slightly
+  const pacfKg = (4.8 + updateCount*0.003).toFixed(1);
+  const petgKg = (3.2 + updateCount*0.002).toFixed(1);
+  document.getElementById('fil-pacf-kg').textContent = pacfKg+' кг';
+  document.getElementById('fil-petg-kg').textContent = petgKg+' кг';
+  const pacfPct = Math.min(95, 60 + updateCount*0.3);
+  const petgPct = Math.min(80, 40 + updateCount*0.2);
+  document.getElementById('fil-pacf').style.width = pacfPct+'%';
+  document.getElementById('fil-petg').style.width = petgPct+'%';
+
+  // Panel timestamps
+  document.getElementById('active-ts').textContent = 'Оновлено ' + timeStr();
+  document.getElementById('load-ts').textContent = 'Оновлено ' + timeStr();
+
+  // Update counter footer
+  const ago = updateCount === 1 ? 'тільки що' : `${updateCount*30} с тому`;
+  document.getElementById('update-counter').textContent = `останнє оновлення: ${timeStr()}`;
+
+  // Blink status dot
+  const dot = document.getElementById('sdot');
+  dot.style.opacity = '0.3';
+  setTimeout(()=>{ dot.style.opacity = '1'; }, 300);
+
+  // Re-render dynamic parts
+  renderPrinters();
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────────
+renderPrinters();
+renderQueue();
+renderBars();
+renderSparkline();
+
+// Clock ticks every second
+setInterval(()=>{ document.getElementById('ts').textContent = nowStr(); }, 1000);
+
+// Live data every 30 seconds
+setInterval(liveUpdate, 30000);
+
+// Also update immediately on load after 2s for demo feel
+setTimeout(liveUpdate, 2000);
+</script>
+</body>
+</html>

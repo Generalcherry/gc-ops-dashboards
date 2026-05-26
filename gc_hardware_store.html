@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>GC · Склад Матеріалів (Lean) · K-STR-06</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F8F8;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;color:#191818}
+.hdr{background:#F8F8F8;border-bottom:1px solid #E4E4E4;padding:0 16px;height:36px;display:flex;align-items:center;gap:10px}
+.htitle{font-size:11px;font-variant:small-caps;letter-spacing:.08em;font-weight:600}
+.sdot{width:7px;height:7px;border-radius:50%;background:#3A5311;display:inline-block;transition:opacity .3s}
+.hts{font-size:11px;color:#8A8A8A;font-family:monospace;margin-left:auto}
+.logo{font-size:13px;font-weight:700;color:#38050A;margin-left:10px}
+.ks{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid #E4E4E4}
+.kt{padding:9px 14px;border-right:1px solid #E4E4E4;background:#fff}
+.kt:last-child{border-right:none}
+.kl{font-size:10px;color:#8A8A8A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.kv{font-size:22px;font-weight:600;color:#38050A;font-family:monospace;line-height:1.1;transition:color .4s}
+.ksub{font-size:10px;color:#5A5A5A;margin-top:2px}
+.ksub.p{color:#3A5311}.ksub.w{color:#B81121}
+.pnl{background:#fff;border:1px solid #E4E4E4;border-radius:4px;margin:8px}
+.ph{padding:7px 12px;border-bottom:1px solid #E4E4E4;display:flex;align-items:center;justify-content:space-between}
+.ptt{font-size:11px;font-variant:small-caps;letter-spacing:.07em;font-weight:600}
+.pts{font-size:10px;color:#8A8A8A;font-family:monospace}
+.r2{display:grid;grid-template-columns:60fr 40fr}
+.r3{display:grid;grid-template-columns:repeat(3,1fr)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{font-size:10px;color:#8A8A8A;font-weight:500;padding:5px 10px;border-bottom:1px solid #E4E4E4;text-transform:uppercase;letter-spacing:.04em;text-align:left}
+td{padding:5px 10px;border-bottom:1px solid #F2F2F2;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F6DEB6}
+.pill{display:inline-block;border-radius:2px;padding:1px 6px;font-size:10px;font-weight:600}
+.pp{background:#AAB97E;color:#3A5311}
+.pf{background:#DA1427;color:#fff}
+.pw{background:#F6DEB6;color:#B81121}
+.pn{background:#F2F2F2;color:#8A8A8A;border:1px solid #CFCFCF}
+.mc{font-family:monospace;font-size:10px;color:#5A5A5A}
+.vc{font-family:monospace;font-size:11px;color:#191818;font-weight:600}
+.mvmt-row{display:flex;align-items:center;gap:8px;padding:4px 12px;border-bottom:1px solid #F2F2F2;font-size:11px;transition:background .3s}
+.mvmt-row:last-child{border-bottom:none}
+.mvmt-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mvmt-ts{font-family:monospace;font-size:10px;color:#8A8A8A;width:40px;flex-shrink:0}
+.kan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid #E4E4E4}
+.kan-col{border-right:1px solid #E4E4E4}
+.kan-col:last-child{border-right:none}
+.kan-head{font-size:10px;color:#8A8A8A;text-transform:uppercase;letter-spacing:.06em;padding:6px 10px;border-bottom:1px solid #E4E4E4;background:#F8F8F8}
+.kan-card{margin:6px 8px;padding:6px 8px;border:1px solid #E4E4E4;border-radius:3px;background:#fff;font-size:10px}
+.kan-card.urgent{border-color:#B81121;background:#FDF5F5}
+.kan-card.ok{border-color:#AAB97E;background:#F7FAF0}
+.kan-id{font-family:monospace;font-size:10px;font-weight:700}
+.kan-detail{color:#5A5A5A;margin-top:2px}
+.stock-bar-bg{flex:1;height:10px;background:#F2F2F2;border-radius:2px;overflow:hidden}
+.stock-bar{height:100%;border-radius:2px;transition:width .8s ease}
+.bi{padding:10px 12px}
+.ftr{padding:4px 16px;border-top:1px solid #E4E4E4;background:#F8F8F8}
+.ftxt{font-size:10px;color:#8A8A8A;font-family:monospace}
+@keyframes new-entry{from{background:#F6DEB6}to{background:transparent}}
+.new-mvmt{animation:new-entry 2s ease}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="sdot" id="sdot"></div>
+  <span class="htitle">Склад Матеріалів · Lean</span>
+  <span style="font-size:11px;color:#8A8A8A;font-family:monospace">K-STR-06</span>
+  <span class="hts" id="ts">2026-05-26 14:32:07</span>
+  <span class="logo">GC</span>
+</div>
+
+<div class="ks">
+  <div class="kt"><div class="kl">Позицій на складі</div><div class="kv" id="k-items">847</div><div class="ksub">з 862 активних</div></div>
+  <div class="kt"><div class="kl">Нижче мін. запасу</div><div class="kv" id="k-low">7</div><div class="ksub w" id="k-low-sub">3 крит. / 4 попер.</div></div>
+  <div class="kt"><div class="kl">Відкр. замовлень</div><div class="kv" id="k-orders">12</div><div class="ksub" id="k-orders-sub">4 прибув. сьогодні</div></div>
+  <div class="kt"><div class="kl">Видач за зміну</div><div class="kv" id="k-issues">183</div><div class="ksub p" id="k-issues-sub">+11% до норми</div></div>
+  <div class="kt"><div class="kl">Оборотність (30д)</div><div class="kv" id="k-turnover">4.7x</div><div class="ksub p">Ціль 4.5x</div></div>
+</div>
+
+<div class="r2">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Критичні та Низькі Залишки</span><span class="pts" id="crit-ts">Оновлено 14:32:01</span></div>
+    <table id="crit-table">
+      <thead><tr><th>Код</th><th>Найменування</th><th>Залишок</th><th>Мін.</th><th>Статус</th><th>Поповнення</th></tr></thead>
+      <tbody id="crit-tbody"></tbody>
+    </table>
+    <div style="font-size:10px;color:#8A8A8A;padding:3px 12px 7px;font-family:monospace;border-top:1px solid #F2F2F2">↳ ESC-30A-V3: резерв 4 шт. виданий ЛН-04 під гарантію · 14:12 · К.Д.</div>
+    <div class="ph" style="border-top:1px solid #E4E4E4;margin-top:4px"><span class="ptt">Рух Матеріалів (Поточна Зміна)</span><span class="pts" id="mvmt-ts">Оновлено 14:31:44</span></div>
+    <div id="mvmt-list"></div>
+  </div>
+
+  <div style="display:flex;flex-direction:column">
+    <div class="pnl">
+      <div class="ph"><span class="ptt">Kanban · Стан Карток</span><span class="pts" id="kan-ts">Оновлено 14:30:12</span></div>
+      <div class="kan-grid">
+        <div class="kan-col">
+          <div class="kan-head">В роботі</div>
+          <div class="kan-card ok"><div class="kan-id">KBN-0041</div><div class="kan-detail">ESC-30A · 30 шт.</div><div class="kan-detail" style="color:#3A5311">Прибуває <span id="kan-eta1">14:30</span></div></div>
+          <div class="kan-card ok"><div class="kan-id">KBN-0038</div><div class="kan-detail">PETG · 12 рул.</div><div class="kan-detail" style="color:#3A5311">Прибуло 13:22</div></div>
+          <div class="kan-card"><div class="kan-id">KBN-0036</div><div class="kan-detail">MTR-2207 · 24 шт.</div><div class="kan-detail" style="color:#8A8A8A">ETA: 27.05</div></div>
+        </div>
+        <div class="kan-col">
+          <div class="kan-head">Очікують</div>
+          <div class="kan-card urgent"><div class="kan-id">KBN-0044</div><div class="kan-detail">TPU · 6 рул.</div><div class="kan-detail" style="color:#B81121">ПРОСТРОЧЕНО</div></div>
+          <div class="kan-card"><div class="kan-id">KBN-0043</div><div class="kan-detail">BOLT-M3 · 500шт</div><div class="kan-detail" style="color:#8A8A8A">Затверд. 26.05</div></div>
+          <div class="kan-card"><div class="kan-id">KBN-0042</div><div class="kan-detail">GLUE-EPX · 20шт</div><div class="kan-detail" style="color:#8A8A8A">Нові</div></div>
+        </div>
+        <div class="kan-col">
+          <div class="kan-head">Вільні</div>
+          <div class="kan-card"><div class="kan-id">KBN-0031</div><div class="kan-detail">PA-CF · рулони</div><div class="kan-detail" style="color:#3A5311">Поповнено 24.05</div></div>
+          <div class="kan-card"><div class="kan-id">KBN-0029</div><div class="kan-detail">BOLT-M2 · 1000шт</div><div class="kan-detail" style="color:#3A5311">OK</div></div>
+          <div class="kan-card"><div class="kan-id">KBN-0027</div><div class="kan-detail">WIRE-AWG24</div><div class="kan-detail" style="color:#3A5311">OK</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pnl" style="flex:1">
+      <div class="ph"><span class="ptt">Прийом Сьогодні</span><span class="pts" id="recv-ts">Оновлено 14:30:00</span></div>
+      <table id="recv-table">
+        <thead><tr><th>Код</th><th>К-сть</th><th>ETA</th><th>Постач.</th><th>Статус</th></tr></thead>
+        <tbody id="recv-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="r3">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Топ Видачі (7 Днів)</span><span class="pts">Оновлено 14:28:00</span></div>
+    <table><thead><tr><th>Код</th><th>Найменування</th><th>К-сть</th><th>Цех</th></tr></thead>
+    <tbody>
+      <tr><td class="mc">MTR-2207-1750</td><td style="font-size:10px">Мотор 2207</td><td class="vc" id="top1">88</td><td class="mc">ЛН-01,02</td></tr>
+      <tr><td class="mc">ESC-30A-V3</td><td style="font-size:10px">ESC 30A</td><td class="vc" id="top2">84</td><td class="mc">ЛН-01–04</td></tr>
+      <tr><td class="mc">BOLT-M3x8-SS</td><td style="font-size:10px">Гвинт M3×8</td><td class="vc" id="top3">1 240</td><td class="mc">Всі</td></tr>
+      <tr><td class="mc">PA-CF-1KG</td><td style="font-size:10px">PA-CF рулон</td><td class="vc" id="top4">34</td><td class="mc">3D-цех</td></tr>
+      <tr><td class="mc">LiPo-4S-2200</td><td style="font-size:10px">АКБ 4S</td><td class="vc" id="top5">62</td><td class="mc">Льот. цех</td></tr>
+    </tbody></table>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Рівень Запасів по Групах</span><span class="pts" id="stock-ts">Оновлено 14:28:00</span></div>
+    <div class="bi" id="stock-bars"></div>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Показники Складу (30 Днів)</span><span class="pts">Оновлено 14:20:00</span></div>
+    <div class="bi">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><div style="font-size:10px;color:#8A8A8A">Точність інвентарю</div><div style="font-size:22px;font-family:monospace;color:#3A5311;font-weight:600">99.1%</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Час видачі сер.</div><div style="font-size:22px;font-family:monospace;color:#38050A;font-weight:600" id="issue-time">4.2хв</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Повернень</div><div style="font-size:22px;font-family:monospace;color:#5A5A5A;font-weight:600">34</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Прострочен. замовл.</div><div style="font-size:22px;font-family:monospace;color:#D13D49;font-weight:600">1</div></div>
+      </div>
+      <div style="font-size:10px;color:#8A8A8A;margin-top:8px;font-family:monospace">↳ Інвентаризація чарунки D-07 проведена вручну · 22.05 · К.Д.</div>
+    </div>
+  </div>
+</div>
+
+<div class="ftr">
+  <span class="ftxt">Джерело даних: WMS v3.4 · Kanban Scanner · оновлення кожні 60 с · журнал: K-STR-06/log · Контакт: Склад · вн. 501 · <span id="update-ts">—</span></span>
+</div>
+
+<script>
+const pad = n=>String(n).padStart(2,'0');
+function nowStr(){const n=new Date();return `2026-05-26 ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function timeStr(){const n=new Date();return `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function rnd(a,b){return a+Math.random()*(b-a);}
+
+// Live state
+let issuesCount = 183;
+const critItems = [
+  {code:'ESC-30A-V3',name:'Регулятор ESC 30A',qty:4,min:20,status:'pf',statusTxt:'КРИТ.',fill:'Замовл. · 24.05 · прибут. сьогодні',fillOk:true},
+  {code:'MTR-2207-1750',name:'Мотор безколект. 2207',qty:8,min:24,status:'pf',statusTxt:'КРИТ.',fill:'Замовл. · 25.05 · ще не прибуло',fillOk:false},
+  {code:'TPU-1.75-BLK',name:'Філамент TPU 1кг',qty:1,min:4,status:'pf',statusTxt:'КРИТ.',fill:'Замовл. · 25.05 · прибут. 27.05',fillOk:true},
+  {code:'GLUE-EPX-50ML',name:'Клей епоксидний 50мл',qty:11,min:20,status:'pw',statusTxt:'ПОПЕРЕД.',fill:'Запит · 26.05 · О.К.',fillOk:false},
+  {code:'BOLT-M3x8-SS',name:'Гвинт М3×8 нерж.',qty:74,min:150,status:'pw',statusTxt:'ПОПЕРЕД.',fill:'Запит · 26.05',fillOk:false},
+  {code:'CAM-LENS-M8',name:"Об'єктив M8 2.8мм",qty:3,min:8,status:'pw',statusTxt:'ПОПЕРЕД.',fill:'Запит · 26.05',fillOk:false},
+  {code:'WIRE-AWG28-R',name:'Провід AWG28 червон.',qty:'42м',min:'100м',status:'pw',statusTxt:'ПОПЕРЕД.',fill:'—',fillOk:false},
+];
+
+const movements = [
+  {dot:'#3A5311',ts:'14:28',text:'Видача · MTR-2207-1750 · 4 шт. → ЛН-04 · К.Д.'},
+  {dot:'#3A5311',ts:'14:12',text:'Видача · ESC-30A-V3 · 4 шт. → ЛН-04 (резерв)'},
+  {dot:'#737222',ts:'13:58',text:'Повернення · BOLT-M3x8-SS · 12 шт. ← ЛН-03'},
+  {dot:'#3A5311',ts:'13:41',text:'Видача · PA-CF 1кг · 2 рул. → 3D-цех · Т.С.'},
+  {dot:'#3A5311',ts:'13:22',text:'Прийом · PETG-1.75-GR · 6 рул. ← Постачальник'},
+  {dot:'#B81121',ts:'12:47',text:'Відхил. видачу · CAM-LENS-M8 · нема потрібн. к-сті · В.М.'},
+];
+
+const incoming = [
+  {code:'ESC-30A-V3',qty:'30 шт.',eta:'14:30',supplier:'ТОВ Авіатех',status:'pw',st:'Затримка'},
+  {code:'FC-F7-V2',qty:'10 шт.',eta:'15:00',supplier:'SpeedyBee UA',status:'pn',st:'В дорозі'},
+  {code:'PA-CF-1KG',qty:'8 рул.',eta:'15:45',supplier:'Filament UA',status:'pn',st:'В дорозі'},
+  {code:'LiPo-4S-2200',qty:'20 шт.',eta:'16:00',supplier:'GreenBat',status:'pn',st:'В дорозі'},
+];
+
+const stockGroups = [
+  {name:'Електроніка',pct:38,color:'#D13D49'},
+  {name:'Філамент',pct:61,color:'#737222'},
+  {name:'Кріплення',pct:72,color:'#AAB97E'},
+  {name:'Кабелі',pct:55,color:'#737222'},
+  {name:'АКБ',pct:84,color:'#3A5311'},
+  {name:'Хімія / Клей',pct:29,color:'#B81121'},
+  {name:'Оптика',pct:44,color:'#737222'},
+];
+
+const mvmtVerbs = ['Видача','Видача','Видача','Повернення','Прийом'];
+const mvmtItems = ['BOLT-M3x8-SS','PA-CF-1KG','MTR-2207-1750','PETG-1.75-GR','ESC-30A-V3'];
+const mvmtDests = ['ЛН-01','ЛН-02','ЛН-04','3D-цех','QA'];
+
+function renderCritTable(){
+  const tb=document.getElementById('crit-tbody');tb.innerHTML='';
+  critItems.forEach(i=>{
+    const qColor=i.status==='pf'?'#DA1427':'#B81121';
+    tb.innerHTML+=`<tr><td class="mc">${i.code}</td><td>${i.name}</td><td class="vc" style="color:${qColor}">${i.qty}</td><td class="mc">${i.min}</td><td><span class="pill ${i.status}">${i.statusTxt}</span></td><td style="font-size:10px;color:${i.fillOk?'#3A5311':'#B81121'}">${i.fill}</td></tr>`;
+  });
+}
+
+function renderMovements(){
+  const el=document.getElementById('mvmt-list');el.innerHTML='';
+  movements.slice(0,6).forEach((m,i)=>{
+    el.innerHTML+=`<div class="mvmt-row${i===0?' new-mvmt':''}"><div class="mvmt-dot" style="background:${m.dot}"></div><span class="mvmt-ts">${m.ts}</span><span>${m.text}</span></div>`;
+  });
+}
+
+function renderIncoming(){
+  const tb=document.getElementById('recv-tbody');tb.innerHTML='';
+  incoming.forEach(i=>{
+    tb.innerHTML+=`<tr><td class="mc">${i.code}</td><td class="vc">${i.qty}</td><td class="mc">${i.eta}</td><td style="font-size:10px">${i.supplier}</td><td><span class="pill ${i.status}">${i.st}</span></td></tr>`;
+  });
+}
+
+function renderStockBars(){
+  const el=document.getElementById('stock-bars');
+  el.innerHTML='<div style="display:flex;flex-direction:column;gap:6px">';
+  stockGroups.forEach(g=>{
+    el.innerHTML+=`<div style="display:flex;align-items:center;gap:8px"><span style="font-size:10px;color:#191818;width:90px">${g.name}</span><div class="stock-bar-bg"><div class="stock-bar" id="sb-${g.name.replace(/\//g,'').replace(/\s/g,'')}" style="width:${g.pct}%;background:${g.color}"></div></div><span style="font-family:monospace;font-size:10px;font-weight:600;color:${g.color}">${g.pct}%</span></div>`;
+  });
+  el.innerHTML+='</div>';
+}
+
+// ── Live update ────────────────────────────────────────────────────────────────
+let updateTick=0;
+function liveUpdate(){
+  updateTick++;
+  const now=new Date();
+
+  // Issue counter increases by 1-3 per minute
+  issuesCount += Math.floor(rnd(1,4));
+  document.getElementById('k-issues').textContent=issuesCount;
+  const pct=Math.round((issuesCount-183)/183*100+11);
+  document.getElementById('k-issues-sub').textContent=`+${pct}% до норми`;
+
+  // Occasionally add a new movement
+  if(Math.random()<0.6){
+    const verb=mvmtVerbs[Math.floor(Math.random()*mvmtVerbs.length)];
+    const item=mvmtItems[Math.floor(Math.random()*mvmtItems.length)];
+    const qty=Math.floor(rnd(1,20));
+    const dest=mvmtDests[Math.floor(Math.random()*mvmtDests.length)];
+    const dot=verb==='Повернення'?'#737222':verb==='Прийом'?'#3A5311':'#3A5311';
+    movements.unshift({dot,ts:timeStr().slice(0,5),text:`${verb} · ${item} · ${qty} шт. → ${dest}`});
+    if(movements.length>8)movements.pop();
+  }
+
+  // Slightly adjust stock percentages
+  stockGroups.forEach(g=>{
+    if(g.pct>5) g.pct=Math.max(5,Math.min(99,g.pct+Math.round(rnd(-1,1))));
+  });
+
+  // Timestamps
+  document.getElementById('crit-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('mvmt-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('stock-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('kan-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('recv-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('update-ts').textContent=timeStr();
+
+  // Blink dot
+  const dot=document.getElementById('sdot');
+  dot.style.opacity='0.2';
+  setTimeout(()=>dot.style.opacity='1',400);
+
+  renderMovements();
+  renderStockBars();
+  renderIncoming();
+}
+
+// Init
+renderCritTable();
+renderMovements();
+renderIncoming();
+renderStockBars();
+
+setInterval(()=>document.getElementById('ts').textContent=nowStr(),1000);
+setInterval(liveUpdate,60000);
+setTimeout(liveUpdate,3000);
+</script>
+</body>
+</html>

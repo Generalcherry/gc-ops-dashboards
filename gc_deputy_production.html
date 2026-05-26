@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>GC · Заступник Нач. Виробництва · K-PROD-02</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F8F8;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;color:#191818}
+.hdr{background:#F8F8F8;border-bottom:1px solid #E4E4E4;padding:0 16px;height:36px;display:flex;align-items:center;gap:12px}
+.htitle{font-size:11px;font-variant:small-caps;letter-spacing:.08em;font-weight:600}
+.sdot{width:7px;height:7px;border-radius:50%;background:#3A5311;display:inline-block;transition:opacity .3s}
+.hts{font-size:11px;color:#8A8A8A;font-family:monospace;margin-left:auto}
+.logo{font-size:13px;font-weight:700;color:#38050A;margin-left:12px}
+.ks{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid #E4E4E4}
+.kt{padding:9px 14px;border-right:1px solid #E4E4E4;background:#fff}
+.kt:last-child{border-right:none}
+.kl{font-size:10px;color:#8A8A8A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.kv{font-size:22px;font-weight:600;color:#38050A;font-family:monospace;line-height:1.1;transition:color .4s}
+.ksub{font-size:10px;color:#5A5A5A;margin-top:2px}
+.ksub.pos{color:#3A5311}.ksub.warn{color:#B81121}
+.pnl{background:#fff;border:1px solid #E4E4E4;border-radius:4px;margin:8px}
+.ph{padding:7px 12px;border-bottom:1px solid #E4E4E4;display:flex;align-items:center;justify-content:space-between}
+.ptt{font-size:11px;font-variant:small-caps;letter-spacing:.07em;font-weight:600}
+.pts{font-size:10px;color:#8A8A8A;font-family:monospace}
+.r2{display:grid;grid-template-columns:50fr 50fr}
+.r3{display:grid;grid-template-columns:repeat(3,1fr)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{font-size:10px;color:#8A8A8A;font-weight:500;padding:5px 10px;border-bottom:1px solid #E4E4E4;text-transform:uppercase;letter-spacing:.04em;text-align:left}
+td{padding:5px 10px;border-bottom:1px solid #F2F2F2;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F6DEB6}
+.pill{display:inline-block;border-radius:2px;padding:1px 6px;font-size:10px;font-weight:600}
+.pp{background:#AAB97E;color:#3A5311}
+.pf{background:#DA1427;color:#fff}
+.pw{background:#F6DEB6;color:#B81121}
+.pn{background:#F2F2F2;color:#8A8A8A;border:1px solid #CFCFCF}
+.mc{font-family:monospace;font-size:10px;color:#5A5A5A}
+.vc{font-family:monospace;font-size:11px;color:#191818;font-weight:600}
+.wip-row{display:flex;align-items:center;gap:8px;padding:5px 12px;border-bottom:1px solid #F2F2F2}
+.wip-row:last-child{border-bottom:none}
+.wip-stage{font-size:11px;color:#191818;flex:1}
+.wip-val{font-family:monospace;font-size:13px;font-weight:600;width:38px;text-align:right;transition:color .4s}
+.wip-bar-bg{width:80px;height:8px;background:#F2F2F2;border-radius:2px;overflow:hidden}
+.wip-bar-fill{height:100%;border-radius:2px;background:#AAB97E;transition:width .8s ease}
+.takt-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.takt-cell{padding:6px 8px;border-right:1px solid #F2F2F2;text-align:center}
+.takt-cell:last-child{border-right:none}
+.takt-name{font-size:10px;color:#8A8A8A;margin-bottom:2px;font-family:monospace}
+.takt-val{font-size:15px;font-family:monospace;font-weight:600;color:#191818;transition:color .4s}
+.takt-delta{font-size:10px}
+.ftr{padding:4px 16px;border-top:1px solid #E4E4E4;background:#F8F8F8}
+.ftxt{font-size:10px;color:#8A8A8A;font-family:monospace}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="sdot" id="sdot"></div>
+  <span class="htitle">Заступник Начальника Виробництва</span>
+  <span style="font-size:11px;color:#8A8A8A;font-family:monospace">K-PROD-02</span>
+  <span class="hts" id="ts">2026-05-26 14:32:07</span>
+  <span class="logo">GC</span>
+</div>
+
+<div class="ks">
+  <div class="kt"><div class="kl">Такт-час (план)</div><div class="kv">42.0с</div><div class="ksub" id="k-takt-fact">Факт: 42.8с</div></div>
+  <div class="kt"><div class="kl">WIP Загальний</div><div class="kv" id="k-wip">312 PCS</div><div class="ksub warn" id="k-wip-sub">+28 від норми</div></div>
+  <div class="kt"><div class="kl">Вузьке місце</div><div class="kv">ЛН-03</div><div class="ksub warn" id="k-bottleneck">Зупинено 47хв</div></div>
+  <div class="kt"><div class="kl">Переналад. (зм.)</div><div class="kv" id="k-setups">6</div><div class="ksub pos">−2 від норми</div></div>
+  <div class="kt"><div class="kl">Дефектів (зм.)</div><div class="kv" id="k-defects">18 PCS</div><div class="ksub" id="k-fpy">FPY 96.8%</div></div>
+</div>
+
+<div class="r2">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">WIP по Стадіях</span><span class="pts" id="wip-ts">Оновлено 14:32:00</span></div>
+    <div id="wip-list"></div>
+    <div style="padding:4px 12px;font-size:10px;color:#D13D49;font-family:monospace;border-top:1px solid #F2F2F2" id="wip-note">↳ Накопичення на Складанні через зупинку ЛН-03</div>
+
+    <div class="ph" style="border-top:1px solid #E4E4E4;margin-top:4px">
+      <span class="ptt">Такт-час по Лінії (зміна)</span>
+    </div>
+    <div class="takt-grid" id="takt-grid"></div>
+  </div>
+
+  <div style="display:flex;flex-direction:column">
+    <div class="pnl">
+      <div class="ph"><span class="ptt">Дефекти по Типу (30 Днів)</span><span class="pts">Оновлено 14:28:11</span></div>
+      <table><thead><tr><th>Тип дефекту</th><th>К-сть</th><th>%</th><th>Лінія</th><th>Статус</th></tr></thead>
+      <tbody>
+        <tr><td>Зміщення пайки</td><td class="vc">34</td><td class="mc">41.5%</td><td class="mc">ЛН-02</td><td><span class="pill pw">Аналіз</span></td></tr>
+        <tr><td>Тріщина корпусу</td><td class="vc">21</td><td class="mc">25.6%</td><td class="mc">ЛН-01</td><td><span class="pill pp">Закрито</span></td></tr>
+        <tr><td>Механічний зазор</td><td class="vc">17</td><td class="mc">20.7%</td><td class="mc">ЛН-04</td><td><span class="pill pp">Закрито</span></td></tr>
+        <tr><td>Виступ клею</td><td class="vc">8</td><td class="mc">9.8%</td><td class="mc">ЛН-05</td><td><span class="pill pn">n/a</span></td></tr>
+        <tr><td>Зовнішній вигляд</td><td class="vc">2</td><td class="mc">2.4%</td><td class="mc">ЛН-01</td><td><span class="pill pn">n/a</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="pnl" style="flex:1">
+      <div class="ph"><span class="ptt">Переналадки (зміна)</span><span class="pts" id="setup-ts">Оновлено 14:31:44</span></div>
+      <table id="setup-table">
+        <thead><tr><th>Час</th><th>Лінія</th><th>З / На</th><th>Тривал.</th><th>Оператор</th></tr></thead>
+        <tbody id="setup-tbody"></tbody>
+      </table>
+      <div style="font-size:10px;color:#8A8A8A;padding:4px 10px;font-family:monospace;border-top:1px solid #F2F2F2">↳ ЛН-03: рукавичка оператора залишилась у механізмі · 13:47 · Д.В.</div>
+    </div>
+  </div>
+</div>
+
+<div class="r3">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Персонал (зміна C)</span><span class="pts" id="staff-ts">Оновлено 14:31:00</span></div>
+    <div style="padding:10px 12px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div><div style="font-size:10px;color:#8A8A8A">Присутніх</div><div style="font-size:22px;font-family:monospace;color:#38050A;font-weight:600" id="staff-present">34</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">По плану</div><div style="font-size:22px;font-family:monospace;color:#5A5A5A;font-weight:600">36</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Понаднормово</div><div style="font-size:22px;font-family:monospace;color:#D13D49;font-weight:600" id="staff-overtime">3</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Відсутні</div><div style="font-size:22px;font-family:monospace;color:#737222;font-weight:600" id="staff-absent">2</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Виконання Плану (%)</span><span class="pts" id="plan-ts">Оновлено 14:30:00</span></div>
+    <div style="padding:10px 12px" id="plan-bars"></div>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Відхилення Якості (зміна)</span><span class="pts" id="qa-ts">Оновлено 14:31:50</span></div>
+    <table><thead><tr><th>Лот</th><th>Деталь</th><th>Дефект</th><th>Рішення</th></tr></thead>
+    <tbody id="qa-tbody"></tbody></table>
+  </div>
+</div>
+
+<div class="ftr">
+  <span class="ftxt">Джерело даних: MES · QC Logger v1.9 · оновлення кожні 30 с · журнал: K-PROD-02/log · вн. 102 · <span id="update-ts">—</span></span>
+</div>
+
+<script>
+const pad=n=>String(n).padStart(2,'0');
+function nowStr(){const n=new Date();return `2026-05-26 ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function timeStr(){const n=new Date();return `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function rnd(a,b){return a+Math.random()*(b-a);}
+
+const wipStages=[
+  {name:'Заготівка',wip:42,max:120,color:'#AAB97E'},
+  {name:'Механообробка',wip:66,max:120,color:'#AAB97E'},
+  {name:'Складання',wip:91,max:120,color:'#D13D49'},
+  {name:'Пайка / PCB',wip:48,max:120,color:'#AAB97E'},
+  {name:'QA / контроль',wip:34,max:120,color:'#AAB97E'},
+  {name:'Пакування',wip:21,max:120,color:'#AAB97E'},
+];
+
+const taktLines=[
+  {id:'ЛН-01',takt:42.1,plan:42.0},
+  {id:'ЛН-02',takt:44.7,plan:42.0},
+  {id:'ЛН-03',takt:null,plan:42.0},
+  {id:'ЛН-04',takt:41.3,plan:42.0},
+  {id:'ЛН-05',takt:43.8,plan:42.0},
+];
+
+const setups=[
+  {ts:'08:14',line:'ЛН-01',from:'FPV-S',to:'FPV-L',dur:'18хв',op:'М.О.'},
+  {ts:'09:47',line:'ЛН-04',from:'ARM-X8',to:'ARM-X6',dur:'22хв',op:'Д.В.'},
+  {ts:'11:03',line:'ЛН-02',from:'HSG-A',to:'HSG-B',dur:'31хв',op:'С.П.'},
+  {ts:'13:19',line:'ЛН-05',from:'CTRL-1',to:'CTRL-2',dur:'19хв',op:'М.О.'},
+  {ts:'13:55',line:'ЛН-01',from:'FPV-L',to:'CAM-MNT',dur:'24хв',op:'М.О.'},
+];
+
+const planPcts=[
+  {line:'ЛН-01',pct:104.2,color:'#3A5311'},
+  {line:'ЛН-02',pct:97.1,color:'#737222'},
+  {line:'ЛН-03',pct:null,color:'#DA1427'},
+  {line:'ЛН-04',pct:108.4,color:'#3A5311'},
+  {line:'ЛН-05',pct:94.3,color:'#D13D49'},
+];
+
+const qaItems=[
+  {lot:'L-2247',part:'HSG-BAT-019',defect:'Тріщина корпусу',status:'pw',st:'Переробка'},
+  {lot:'L-2248',part:'MNT-FPV-073',defect:'Зміщення пайки',status:'pw',st:'Аналіз'},
+  {lot:'L-2244',part:'ARM-X8-001',defect:'Зазор поза допуском',status:'pp',st:'Закрито'},
+];
+
+let defectCount=18, bottleneckMin=47;
+
+function renderWIP(){
+  const el=document.getElementById('wip-list');el.innerHTML='';
+  const total=wipStages.reduce((s,w)=>s+w.wip,0);
+  wipStages.forEach(w=>{
+    const pct=Math.round(w.wip/w.max*100);
+    const color=w.wip>80?'#D13D49':'#AAB97E';
+    el.innerHTML+=`<div class="wip-row"><span class="wip-stage">${w.name}</span><div class="wip-bar-bg"><div class="wip-bar-fill" style="width:${pct}%;background:${color}"></div></div><span class="wip-val" style="color:${w.wip>80?'#D13D49':'#191818'}">${w.wip}</span></div>`;
+  });
+  document.getElementById('k-wip').textContent=total+' PCS';
+  const d=total-284;
+  document.getElementById('k-wip-sub').textContent=(d>=0?'+':'')+d+' від норми';
+}
+
+function renderTakt(){
+  const el=document.getElementById('takt-grid');el.innerHTML='';
+  taktLines.forEach(l=>{
+    if(!l.takt){
+      el.innerHTML+=`<div class="takt-cell"><div class="takt-name">${l.id}</div><div class="takt-val" style="color:#8A8A8A">—</div><div class="takt-delta" style="color:#8A8A8A">стоп</div></div>`;
+      return;
+    }
+    const d=l.takt-l.plan;
+    const color=Math.abs(d)<1?'#3A5311':d>2?'#D13D49':'#737222';
+    el.innerHTML+=`<div class="takt-cell"><div class="takt-name">${l.id}</div><div class="takt-val" style="color:${color}">${l.takt.toFixed(1)}с</div><div class="takt-delta" style="color:${color}">${d>=0?'+':''}${d.toFixed(1)}с</div></div>`;
+  });
+}
+
+function renderPlanBars(){
+  const el=document.getElementById('plan-bars');el.innerHTML='';
+  el.innerHTML='<div style="display:flex;flex-direction:column;gap:6px">';
+  planPcts.forEach(p=>{
+    const pct=p.pct||0;
+    el.innerHTML+=`<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px">${p.line}</span><div style="flex:1;height:10px;background:#F2F2F2;border-radius:2px;margin:0 8px;overflow:hidden"><div style="width:${Math.min(110,pct)}%;height:100%;background:${p.color};border-radius:2px;transition:width .8s ease"></div></div><span style="font-family:monospace;font-size:11px;font-weight:600;color:${p.color}">${p.pct?p.pct.toFixed(1)+'%':'—'}</span></div>`;
+  });
+  el.innerHTML+='</div>';
+}
+
+function renderSetups(){
+  const tb=document.getElementById('setup-tbody');tb.innerHTML='';
+  setups.forEach(s=>{
+    tb.innerHTML+=`<tr><td class="mc">${s.ts}</td><td class="mc">${s.line}</td><td style="font-size:10px">${s.from} → ${s.to}</td><td class="vc">${s.dur}</td><td class="mc">${s.op}</td></tr>`;
+  });
+}
+
+function renderQA(){
+  const tb=document.getElementById('qa-tbody');tb.innerHTML='';
+  qaItems.forEach(q=>{
+    tb.innerHTML+=`<tr><td class="mc">${q.lot}</td><td class="mc">${q.part}</td><td style="font-size:10px">${q.defect}</td><td><span class="pill ${q.status}">${q.st}</span></td></tr>`;
+  });
+}
+
+function liveUpdate(){
+  // WIP drifts
+  wipStages.forEach(w=>{
+    w.wip=Math.max(5,Math.min(115,w.wip+Math.round(rnd(-4,4))));
+  });
+  // Takt drifts
+  taktLines.forEach(l=>{
+    if(l.takt)l.takt=parseFloat((Math.max(38,Math.min(50,l.takt+rnd(-0.3,0.3)))).toFixed(1));
+  });
+  // Plan pcts drift
+  planPcts.forEach(p=>{
+    if(p.pct)p.pct=parseFloat((Math.max(60,Math.min(115,p.pct+rnd(-0.5,0.8)))).toFixed(1));
+  });
+  // Bottleneck timer
+  bottleneckMin++;
+  document.getElementById('k-bottleneck').textContent=`Зупинено ${bottleneckMin}хв`;
+  // Defects
+  if(Math.random()<0.2){defectCount++;document.getElementById('k-defects').textContent=defectCount+' PCS';}
+  const fpy=(100-defectCount/550*100).toFixed(1);
+  document.getElementById('k-fpy').textContent=`FPY ${fpy}%`;
+
+  // Timestamps
+  document.getElementById('wip-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('setup-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('staff-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('plan-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('qa-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('update-ts').textContent=timeStr();
+
+  const dot=document.getElementById('sdot');
+  dot.style.opacity='0.2';
+  setTimeout(()=>dot.style.opacity='1',400);
+
+  renderWIP();renderTakt();renderPlanBars();
+}
+
+renderWIP();renderTakt();renderSetups();renderPlanBars();renderQA();
+setInterval(()=>document.getElementById('ts').textContent=nowStr(),1000);
+setInterval(liveUpdate,30000);
+setTimeout(liveUpdate,2500);
+</script>
+</body>
+</html>

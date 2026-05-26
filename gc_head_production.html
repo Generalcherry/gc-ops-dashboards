@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>GC · Керівник Виробництва · K-PROD-01</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F8F8;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;color:#191818}
+.hdr{background:#F8F8F8;border-bottom:1px solid #E4E4E4;padding:0 16px;height:36px;display:flex;align-items:center;gap:12px}
+.htitle{font-size:11px;font-variant:small-caps;letter-spacing:.08em;font-weight:600}
+.sdot{width:7px;height:7px;border-radius:50%;background:#3A5311;display:inline-block;transition:opacity .3s}
+.hts{font-size:11px;color:#8A8A8A;font-family:monospace;margin-left:auto}
+.logo{font-size:13px;font-weight:700;color:#38050A;margin-left:12px}
+.ks{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid #E4E4E4}
+.kt{padding:10px 14px;border-right:1px solid #E4E4E4;background:#fff}
+.kt:last-child{border-right:none}
+.kl{font-size:10px;color:#8A8A8A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.kv{font-size:22px;font-weight:600;color:#38050A;font-family:monospace;line-height:1.1;transition:color .4s}
+.ksub{font-size:10px;color:#5A5A5A;margin-top:2px}
+.ksub.pos{color:#3A5311}.ksub.warn{color:#B81121}
+.pnl{background:#fff;border:1px solid #E4E4E4;border-radius:4px;margin:8px}
+.ph{padding:7px 12px;border-bottom:1px solid #E4E4E4;display:flex;align-items:center;justify-content:space-between}
+.ptt{font-size:11px;font-variant:small-caps;letter-spacing:.07em;font-weight:600}
+.pts{font-size:10px;color:#8A8A8A;font-family:monospace}
+.r2{display:grid;grid-template-columns:55fr 45fr}
+.r3{display:grid;grid-template-columns:repeat(3,1fr)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{font-size:10px;color:#8A8A8A;font-weight:500;padding:5px 10px;border-bottom:1px solid #E4E4E4;text-transform:uppercase;letter-spacing:.04em;text-align:left}
+td{padding:5px 10px;border-bottom:1px solid #F2F2F2;vertical-align:middle;transition:background .3s}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F6DEB6}
+.pill{display:inline-block;border-radius:2px;padding:1px 6px;font-size:10px;font-weight:600}
+.pp{background:#AAB97E;color:#3A5311}
+.pf{background:#DA1427;color:#fff}
+.pw{background:#F6DEB6;color:#B81121}
+.pi{background:#F2F2F2;color:#5A5A5A}
+.mc{font-family:monospace;font-size:10px;color:#5A5A5A}
+.vc{font-family:monospace;font-size:11px;color:#191818;font-weight:600}
+.oee-bar-bg{flex:1;height:10px;background:#F2F2F2;border-radius:2px;margin:0 8px;overflow:hidden}
+.oee-bar-fill{height:100%;border-radius:2px;transition:width .8s ease}
+.alert-row{display:flex;align-items:flex-start;gap:8px;padding:5px 10px;border-bottom:1px solid #F2F2F2;font-size:11px}
+.alert-row:last-child{border-bottom:none}
+.alert-dot{width:6px;height:6px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.alert-ts{font-family:monospace;font-size:10px;color:#8A8A8A;width:42px;flex-shrink:0}
+.shift-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.shift-cell{padding:8px 10px;border-right:1px solid #F2F2F2}
+.shift-cell:last-child{border-right:none}
+.shift-label{font-size:10px;color:#8A8A8A;text-transform:uppercase;letter-spacing:.05em}
+.shift-val{font-family:monospace;font-size:18px;color:#191818;font-weight:600;line-height:1.1;margin-top:2px;transition:color .4s}
+.shift-delta{font-size:10px}
+.bc{display:flex;align-items:flex-end;gap:3px;height:48px;margin-top:4px}
+.bw{display:flex;flex-direction:column;align-items:center;gap:1px;flex:1}
+.bv{font-size:8px;color:#5A5A5A;font-family:monospace}
+.bar{background:#AAB97E;border-radius:2px 2px 0 0;width:100%}
+.bd{font-size:8px;color:#8A8A8A}
+.ftr{padding:4px 16px;border-top:1px solid #E4E4E4;background:#F8F8F8}
+.ftxt{font-size:10px;color:#8A8A8A;font-family:monospace}
+@keyframes new-alert{from{background:#FDF5F5}to{background:transparent}}
+.new-alert{animation:new-alert 3s ease}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="sdot" id="sdot"></div>
+  <span class="htitle">Керівник Виробництва</span>
+  <span style="font-size:11px;color:#8A8A8A;font-family:monospace">K-PROD-01</span>
+  <span class="hts" id="ts">2026-05-26 14:32:07</span>
+  <span class="logo">GC</span>
+</div>
+
+<div class="ks">
+  <div class="kt"><div class="kl">Випуск сьогодні</div><div class="kv" id="k-output">1 047</div><div class="ksub pos" id="k-output-sub">+4.2% до плану</div></div>
+  <div class="kt"><div class="kl">OEE (поточна зміна)</div><div class="kv" id="k-oee">87.4%</div><div class="ksub pos">Ціль 85%</div></div>
+  <div class="kt"><div class="kl">FPY (зміна)</div><div class="kv" id="k-fpy">96.8%</div><div class="ksub">Норма >96%</div></div>
+  <div class="kt"><div class="kl">WIP на складі</div><div class="kv" id="k-wip">312 PCS</div><div class="ksub warn" id="k-wip-sub">+28 від норми</div></div>
+  <div class="kt"><div class="kl">Активні лінії</div><div class="kv" id="k-lines">4 / 5</div><div class="ksub warn">ЛН-03 зупинено</div></div>
+</div>
+
+<div class="r2">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Стан Ліній Виробництва</span><span class="pts" id="lines-ts">Оновлено 14:32:01</span></div>
+    <table id="lines-table">
+      <thead><tr><th>Лінія</th><th>Статус</th><th>Такт, с</th><th>Вип./год</th><th>OEE</th><th>WIP</th><th>Зупинок</th></tr></thead>
+      <tbody id="lines-tbody"></tbody>
+    </table>
+    <div style="border-top:1px solid #E4E4E4">
+      <div class="shift-grid">
+        <div class="shift-cell"><div class="shift-label">Зміна A · Випуск</div><div class="shift-val" id="shift-a">428</div><div class="shift-delta" id="shift-a-d" style="color:#3A5311">+22 до плану</div></div>
+        <div class="shift-cell"><div class="shift-label">Зміна B · Випуск</div><div class="shift-val" id="shift-b">394</div><div class="shift-delta" id="shift-b-d" style="color:#3A5311">+9 до плану</div></div>
+        <div class="shift-cell"><div class="shift-label">Зміна C · Випуск</div><div class="shift-val" id="shift-c">225</div><div class="shift-delta" id="shift-c-d" style="color:#B81121">−14 від плану</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column">
+    <div class="pnl">
+      <div class="ph"><span class="ptt">OEE по Лінії (7 Днів)</span><span class="pts" id="oee-ts">Оновлено 14:31:00</span></div>
+      <div id="oee-bars" style="padding:4px 0"></div>
+    </div>
+    <div class="pnl" style="flex:1">
+      <div class="ph"><span class="ptt">Журнал Подій</span><span class="pts" id="events-ts">Оновлено 14:32:05</span></div>
+      <div id="events-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="r3">
+  <div class="pnl">
+    <div class="ph"><span class="ptt">Випуск (7 Днів)</span><span class="pts">Оновлено 14:30:00</span></div>
+    <div style="padding:10px 12px;display:flex;gap:12px;align-items:flex-start">
+      <div style="flex:1"><div class="bc" id="output-chart"></div></div>
+      <div style="text-align:right"><div style="font-size:26px;font-family:monospace;color:#38050A;font-weight:600" id="today-output">1 047</div><div style="font-size:10px;color:#8A8A8A;margin-top:2px">сьогодні</div></div>
+    </div>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">FPY / Переробки (30 Днів)</span><span class="pts">Оновлено 14:28:44</span></div>
+    <div style="padding:10px 12px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div><div style="font-size:10px;color:#8A8A8A">FPY середн.</div><div style="font-size:22px;font-family:monospace;color:#3A5311;font-weight:600">96.8%</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Переробки</div><div style="font-size:22px;font-family:monospace;color:#B81121;font-weight:600">2.4%</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Списання</div><div style="font-size:22px;font-family:monospace;color:#5A5A5A;font-weight:600">0.8%</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Лот-відмови</div><div style="font-size:22px;font-family:monospace;color:#5A5A5A;font-weight:600">3</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="ptt">MTBF / Зупинки</span><span class="pts" id="mtbf-ts">Оновлено 14:32:01</span></div>
+    <div style="padding:10px 12px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div><div style="font-size:10px;color:#8A8A8A">MTBF сер.</div><div style="font-size:22px;font-family:monospace;color:#38050A;font-weight:600" id="mtbf-val">18.4г</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Зупинок/тиж</div><div style="font-size:22px;font-family:monospace;color:#D13D49;font-weight:600" id="stops-val">7</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Серед. MTTR</div><div style="font-size:22px;font-family:monospace;color:#5A5A5A;font-weight:600" id="mttr-val">34хв</div></div>
+        <div><div style="font-size:10px;color:#8A8A8A">Крит. тепер</div><div style="font-size:22px;font-family:monospace;color:#DA1427;font-weight:600" id="crit-val">1</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ftr">
+  <span class="ftxt">Джерело даних: MES · Scada v3.1 · оновлення кожні 30 с · звіт: K-PROD-01/log · Контакт: Виробництво · вн. 101 · <span id="update-ts">—</span></span>
+</div>
+
+<script>
+const pad=n=>String(n).padStart(2,'0');
+function nowStr(){const n=new Date();return `2026-05-26 ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function timeStr(){const n=new Date();return `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function rnd(a,b,d=1){return parseFloat((a+Math.random()*(b-a)).toFixed(d));}
+
+// Live state
+const lines=[
+  {id:'ЛН-01',active:true,takt:42.1,out:84,oee:88.9,wip:47,stops:0},
+  {id:'ЛН-02',active:true,takt:44.7,out:78,oee:86.2,wip:62,stops:1},
+  {id:'ЛН-03',active:false,takt:0,out:0,oee:0,wip:91,stops:3,note:'Відмова сервоприводу · 13:47 · техпідтримка викликана · Д.В.'},
+  {id:'ЛН-04',active:true,takt:41.3,out:87,oee:91.1,wip:55,stops:0},
+  {id:'ЛН-05',active:true,takt:43.8,out:80,oee:84.7,wip:57,stops:0},
+];
+let totalOutput=1047, shiftA=428, shiftB=394, shiftC=225;
+const STATIC_BARS=[1021,1083,998,1112]; // Mon-Thu static
+const DAYS=['Пн','Вт','Ср','Чт','Пт','Сб','Нд'];
+
+const events=[
+  {color:'#DA1427',ts:'13:47',msg:'ЛН-03 · відмова сервоприводу · ост. №3'},
+  {color:'#D13D49',ts:'13:21',msg:'WIP ЛН-03 > порогу (91 PCS)'},
+  {color:'#737222',ts:'12:58',msg:'ЛН-02 · мікрозупинка · 2 хв · відновлено'},
+  {color:'#3A5311',ts:'12:14',msg:'Зміна A завершила план достроково'},
+  {color:'#737222',ts:'11:30',msg:'K-PRT-03 · TPU залишок < 1 кг · замовл.'},
+];
+
+function renderLines(){
+  const tb=document.getElementById('lines-tbody');tb.innerHTML='';
+  lines.forEach(l=>{
+    if(!l.active){
+      tb.innerHTML+=`<tr><td class="mc">${l.id}</td><td><span class="pill pf">ЗУПИНЕНО</span></td><td class="vc">—</td><td class="vc">—</td><td class="vc">—</td><td class="vc">${l.wip}</td><td class="mc">${l.stops}</td></tr>`;
+      if(l.note)tb.innerHTML+=`<tr><td colspan="7" style="font-size:10px;color:#DA1427;padding:2px 10px 6px;font-family:monospace">↳ ${l.note}</td></tr>`;
+      return;
+    }
+    const oeeColor=l.oee>=88?'#3A5311':l.oee>=85?'#737222':'#D13D49';
+    tb.innerHTML+=`<tr><td class="mc">${l.id}</td><td><span class="pill pp">АКТИВНА</span></td><td class="vc">${l.takt.toFixed(1)}</td><td class="vc">${l.out}</td><td class="vc" style="color:${oeeColor}">${l.oee.toFixed(1)}%</td><td class="vc">${l.wip}</td><td class="mc">${l.stops}</td></tr>`;
+  });
+}
+
+function renderOEEBars(){
+  const el=document.getElementById('oee-bars');el.innerHTML='';
+  lines.forEach(l=>{
+    const pct=l.active?l.oee:0;
+    const color=l.active?(l.oee>=88?'#3A5311':l.oee>=85?'#AAB97E':'#D13D49'):'#DA1427';
+    el.innerHTML+=`<div style="display:flex;align-items:center;padding:4px 12px;font-size:11px"><span style="font-family:monospace;font-size:10px;color:#5A5A5A;width:38px">${l.id}</span><div class="oee-bar-bg"><div class="oee-bar-fill" style="width:${pct}%;background:${color}"></div></div><span style="font-family:monospace;font-size:11px;font-weight:600;color:${color};width:42px;text-align:right">${l.active?l.oee.toFixed(1)+'%':'—'}</span></div>`;
+  });
+}
+
+function renderEvents(){
+  const el=document.getElementById('events-list');el.innerHTML='';
+  events.slice(0,5).forEach((e,i)=>{
+    el.innerHTML+=`<div class="alert-row${i===0?' new-alert':''}"><div class="alert-dot" style="background:${e.color}"></div><span class="alert-ts">${e.ts}</span><span style="font-size:11px">${e.msg}</span></div>`;
+  });
+}
+
+function renderOutputChart(){
+  const el=document.getElementById('output-chart');el.innerHTML='';
+  const allVals=[...STATIC_BARS, totalOutput];
+  const maxV=Math.max(...allVals,1);
+  allVals.forEach((v,i)=>{
+    const color=i===4?'#38050A':'#AAB97E';
+    const height=Math.round((v/maxV)*44);
+    el.innerHTML+=`<div class="bw"><div class="bv">${v}</div><div class="bar" style="height:${height}px;background:${color}"></div><div class="bd">${DAYS[i]}</div></div>`;
+  });
+  // Sat/Sun placeholders
+  el.innerHTML+=`<div class="bw"><div class="bv">—</div><div class="bar" style="height:4px;background:#CFCFCF"></div><div class="bd">Сб</div></div>`;
+  el.innerHTML+=`<div class="bw"><div class="bv">—</div><div class="bar" style="height:4px;background:#CFCFCF"></div><div class="bd">Нд</div></div>`;
+}
+
+function liveUpdate(){
+  // Active lines: takt drifts ±0.2, output ±1, oee ±0.2
+  lines.forEach(l=>{
+    if(!l.active)return;
+    l.takt=Math.max(38,Math.min(50,l.takt+rnd(-0.15,0.15)));
+    l.out=Math.max(70,Math.min(95,l.out+Math.round(rnd(-1,2))));
+    l.oee=Math.max(80,Math.min(95,l.oee+rnd(-0.3,0.3)));
+    l.wip=Math.max(20,Math.min(100,l.wip+Math.round(rnd(-3,3))));
+  });
+
+  // Totals
+  totalOutput+=Math.floor(rnd(1,5));
+  shiftC+=Math.floor(rnd(0,3));
+  const shiftCTarget=239;
+  const shiftCDelta=shiftC-shiftCTarget;
+
+  document.getElementById('k-output').textContent=totalOutput.toLocaleString('uk');
+  document.getElementById('today-output').textContent=totalOutput.toLocaleString('uk');
+  const outPct=((totalOutput/1005-1)*100).toFixed(1);
+  document.getElementById('k-output-sub').textContent=`+${outPct}% до плану`;
+  document.getElementById('shift-c').textContent=shiftC;
+  document.getElementById('shift-c-d').textContent=(shiftCDelta>=0?'+':'')+shiftCDelta+' від плану';
+  document.getElementById('shift-c-d').style.color=shiftCDelta>=0?'#3A5311':'#B81121';
+
+  // OEE
+  const avgOee=(lines.filter(l=>l.active).reduce((s,l)=>s+l.oee,0)/4).toFixed(1);
+  document.getElementById('k-oee').textContent=avgOee+'%';
+
+  // WIP
+  const totalWip=lines.reduce((s,l)=>s+l.wip,0);
+  document.getElementById('k-wip').textContent=totalWip+' PCS';
+  const wipDelta=totalWip-284;
+  document.getElementById('k-wip-sub').textContent=(wipDelta>=0?'+':'')+wipDelta+' від норми';
+
+  // Occasionally add event
+  const randomEvents=[
+    {color:'#737222',msg:'ЛН-02 · такт перевищено на 1.2с'},
+    {color:'#3A5311',msg:'ЛН-04 · OEE > 90% впродовж 30 хв'},
+    {color:'#737222',msg:'ЛН-05 · WIP знизився до норми'},
+    {color:'#3A5311',msg:'Зміна C · темп прискорюється'},
+  ];
+  if(Math.random()<0.4){
+    const e=randomEvents[Math.floor(Math.random()*randomEvents.length)];
+    events.unshift({color:e.color,ts:timeStr().slice(0,5),msg:e.msg});
+    if(events.length>7)events.pop();
+  }
+
+  // Timestamps
+  document.getElementById('lines-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('oee-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('events-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('mtbf-ts').textContent='Оновлено '+timeStr();
+  document.getElementById('update-ts').textContent=timeStr();
+
+  const dot=document.getElementById('sdot');
+  dot.style.opacity='0.2';
+  setTimeout(()=>dot.style.opacity='1',400);
+
+  renderLines();
+  renderOEEBars();
+  renderEvents();
+  renderOutputChart();
+}
+
+renderLines();renderOEEBars();renderEvents();renderOutputChart();
+setInterval(()=>document.getElementById('ts').textContent=nowStr(),1000);
+setInterval(liveUpdate,30000);
+setTimeout(liveUpdate,2000);
+</script>
+</body>
+</html>
