@@ -64,7 +64,7 @@ tr:hover td{background:#F6DEB6}
   <div class="sdot" id="sdot"></div>
   <span class="htitle">Керівник Виробництва</span>
   <span style="font-size:11px;color:#8A8A8A;font-family:monospace">K-PROD-01</span>
-  <span class="hts" id="ts">2026-05-26 14:32:07</span>
+  <span class="hts" id="ts">—</span>
   <span class="logo">GC</span>
 </div>
 
@@ -142,7 +142,7 @@ tr:hover td{background:#F6DEB6}
 
 <script>
 const pad=n=>String(n).padStart(2,'0');
-function nowStr(){const n=new Date();return `2026-05-26 ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+function nowStr(){const n=new Date();const y=n.getFullYear(),mo=pad(n.getMonth()+1),d=pad(n.getDate()),h=pad(n.getHours()),mi=pad(n.getMinutes()),s=pad(n.getSeconds());return `${y}-${mo}-${d} ${h}:${mi}:${s}`;}
 function timeStr(){const n=new Date();return `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
 function rnd(a,b,d=1){return parseFloat((a+Math.random()*(b-a)).toFixed(d));}
 
